@@ -59,3 +59,46 @@ services:
     container_name: app
     ports:
       - 8090:8090
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: mysqluser
+      MYSQL_PASSWORD: mysqlpw
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - /var/lib/mysql
+
+
+  mysql-sink:
+    image: mysql:8.0
+    container_name: mysql-sink
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: mysqluser
+      MYSQL_PASSWORD: mysqlpw
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - /home/fox/mysqldb1:/var/lib/mysql
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mydb
+    volumes:
+      -  /home/fox/postgresqldb:/var/lib/postgresql/data

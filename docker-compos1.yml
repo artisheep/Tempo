@@ -108,3 +108,17 @@ services:
       - router
     env_file:
       - environment
+
+  # Superset container
+  superset:
+    image: amancevice/superset:0.18.5
+    container_name: superset
+    ports:
+      - 8088:8088
+
+  # Superset container
+  app:
+    build: app/
+    container_name: app
+    ports:
+      - 8090:8090
